@@ -3,238 +3,626 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#0ea5e9">
-<title>عيادة الابتسامة | حجز موعد</title>
+<meta name="theme-color" content="#0d9488">
+<title>عيادة الابتسامة | د. أحمد الحلاق</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --blue:#0ea5e9;--blue-2:#0284c7;--blue-3:#0369a1;
-  --blue-light:#e0f2fe;--blue-glow:rgba(14,165,233,.15);
+  --teal:#0d9488;--teal-2:#0f766e;--teal-3:#115e59;
+  --teal-soft:#ccfbf1;--teal-glow:rgba(13,148,136,.15);
+  --mint:#5eead4;
+  --blue:#0284c7;--blue-soft:#e0f2fe;
   --green:#10b981;--green-2:#059669;
-  --red:#ef4444;
-  --bg:#f8fafc;--card:#ffffff;
-  --txt:#0f172a;--txt-sub:#64748b;--txt-light:#94a3b8;
+  --red:#ef4444;--amber:#f59e0b;
+  --white:#ffffff;--bg:#f7fafa;--bg-2:#f0f9f8;
+  --txt:#0f172a;--txt-2:#1e293b;--txt-sub:#64748b;--txt-light:#94a3b8;
   --bd:#e2e8f0;--bd-2:#cbd5e1;
-  --shadow:0 4px 24px rgba(15,23,42,.06);
-  --shadow-2:0 12px 40px rgba(15,23,42,.12);
+  --shadow-sm:0 1px 3px rgba(15,23,42,.04);
+  --shadow:0 4px 20px rgba(15,23,42,.06);
+  --shadow-md:0 10px 40px rgba(15,23,42,.08);
+  --shadow-lg:0 20px 60px rgba(15,23,42,.12);
+  --radius:16px;
+  --radius-lg:24px;
 }
 *{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif;-webkit-tap-highlight-color:transparent}
-html,body{overflow-x:hidden}
-body{background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:100px;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.font-cairo{font-family:'Cairo',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--white);color:var(--txt);min-height:100vh;padding-bottom:100px;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+h1,h2,h3,h4{font-family:'Cairo',sans-serif;font-weight:800;line-height:1.3;color:var(--txt)}
 
-/* Header */
-.hdr{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);padding:14px 16px}
-.hdr-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.clinic-logo{display:flex;align-items:center;gap:10px}
-.logo-circle{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--blue-3));display:grid;place-items:center;font-size:1.4rem;color:#fff;box-shadow:0 6px 20px var(--blue-glow)}
-.clinic-name{font-family:'Cairo',sans-serif;font-size:1.05rem;font-weight:900;color:var(--txt)}
-.clinic-sub{font-size:.68rem;color:var(--txt-sub);font-weight:600;margin-top:1px}
-.status-badge{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:100px;background:rgba(16,185,129,.1);color:var(--green-2);font-size:.75rem;font-weight:800;border:1px solid rgba(16,185,129,.25)}
-.status-badge.closed{background:rgba(239,68,68,.08);color:var(--red);border-color:rgba(239,68,68,.2)}
-.status-dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+/* ============ TOP BAR ============ */
+.topbar{background:linear-gradient(135deg,var(--teal-3),var(--teal-2));color:#fff;font-size:.75rem;padding:8px 16px;text-align:center;font-weight:600}
+.topbar span{opacity:.9}
+.topbar strong{color:var(--mint);font-weight:900}
 
-/* Hero */
-.hero{padding:32px 16px 24px;text-align:center;background:linear-gradient(180deg,#ffffff 0%,var(--bg) 100%)}
-.hero-inner{max-width:900px;margin:0 auto}
-.doctor-photo{width:120px;height:120px;border-radius:50%;object-fit:cover;border:4px solid #fff;box-shadow:0 12px 32px rgba(14,165,233,.2);margin-bottom:16px}
-.doctor-name{font-family:'Cairo',sans-serif;font-size:1.5rem;font-weight:900;margin-bottom:6px}
-.doctor-spec{font-size:.88rem;color:var(--blue-2);font-weight:700;margin-bottom:12px}
-.doctor-bio{font-size:.82rem;color:var(--txt-sub);max-width:520px;margin:0 auto 16px;line-height:1.7}
-.stats-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:20px}
-.stat{text-align:center}
-.stat-num{font-family:'Cairo',sans-serif;font-size:1.4rem;font-weight:900;color:var(--blue-2)}
-.stat-lbl{font-size:.7rem;color:var(--txt-sub);font-weight:600;margin-top:2px}
+/* ============ HEADER ============ */
+.hdr{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--bd);box-shadow:var(--shadow-sm)}
+.hdr-inner{max-width:1100px;margin:0 auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.clinic-brand{display:flex;align-items:center;gap:12px}
+.brand-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--teal),var(--teal-3));display:grid;place-items:center;color:#fff;font-size:1.5rem;box-shadow:0 8px 24px var(--teal-glow);position:relative}
+.brand-icon::after{content:'';position:absolute;inset:0;border-radius:14px;padding:1px;background:linear-gradient(135deg,rgba(255,255,255,.4),transparent);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.brand-text .name{font-family:'Cairo',sans-serif;font-size:1.05rem;font-weight:900;color:var(--txt);line-height:1.2}
+.brand-text .sub{font-size:.7rem;color:var(--txt-sub);font-weight:600;margin-top:1px}
+.hdr-nav{display:flex;align-items:center;gap:6px}
+.hdr-nav a{color:var(--txt-sub);text-decoration:none;font-size:.82rem;font-weight:700;padding:8px 12px;border-radius:10px;transition:.2s}
+.hdr-nav a:hover{background:var(--bg-2);color:var(--teal)}
+.hdr-cta{background:linear-gradient(135deg,var(--teal),var(--teal-2));color:#fff!important;padding:10px 20px!important;border-radius:12px!important;font-weight:800!important;box-shadow:0 8px 20px var(--teal-glow);transition:.2s}
+.hdr-cta:hover{transform:translateY(-1px);box-shadow:0 12px 28px var(--teal-glow)}
 
-/* Container */
-.wrap{max-width:900px;margin:0 auto;padding:0 16px}
+@media(max-width:720px){
+  .hdr-nav a:not(.hdr-cta){display:none}
+  .brand-text .name{font-size:.95rem}
+  .brand-icon{width:42px;height:42px;font-size:1.3rem}
+}
 
-/* Section */
-.section-title{font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:900;margin:32px 0 16px;display:flex;align-items:center;gap:10px}
-.section-title::before{content:'';width:4px;height:20px;border-radius:4px;background:linear-gradient(180deg,var(--blue),var(--blue-3))}
+/* ============ HERO ============ */
+.hero{position:relative;overflow:hidden;padding:48px 20px 64px;background:linear-gradient(180deg,var(--bg-2) 0%,var(--white) 100%)}
+.hero-bg{position:absolute;inset:0;pointer-events:none;opacity:.5}
+.hero-bg::before,.hero-bg::after{content:'';position:absolute;border-radius:50%;filter:blur(60px)}
+.hero-bg::before{width:400px;height:400px;background:radial-gradient(circle,rgba(13,148,136,.15),transparent 70%);top:-100px;left:-100px}
+.hero-bg::after{width:400px;height:400px;background:radial-gradient(circle,rgba(94,234,212,.15),transparent 70%);bottom:-100px;right:-100px}
+.hero-inner{position:relative;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+@media(min-width:860px){.hero-inner{grid-template-columns:1.15fr 1fr;gap:48px}}
 
-/* Services */
-.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(min-width:640px){.services-grid{grid-template-columns:repeat(3,1fr);gap:16px}}
-.service-card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;cursor:pointer;transition:.25s;position:relative;overflow:hidden}
-.service-card:active{transform:scale(.97)}
-.service-card:hover{border-color:var(--blue);box-shadow:var(--shadow-2);transform:translateY(-2px)}
-.service-icon{font-size:1.6rem;margin-bottom:8px;display:block}
-.service-name{font-weight:800;font-size:.92rem;margin-bottom:4px;line-height:1.3;min-height:2.4em}
-.service-duration{font-size:.7rem;color:var(--txt-light);margin-bottom:10px;display:flex;align-items:center;gap:4px}
-.service-price{font-family:'Cairo',sans-serif;font-weight:900;color:var(--blue-2);font-size:.95rem}
-.service-book-btn{margin-top:10px;width:100%;padding:8px;border-radius:10px;background:var(--blue-light);color:var(--blue-3);border:none;font-weight:800;font-size:.78rem;cursor:pointer;transition:.2s;font-family:'Tajawal',sans-serif}
-.service-card:hover .service-book-btn{background:var(--blue);color:#fff}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:100px;background:rgba(13,148,136,.1);color:var(--teal-2);font-size:.75rem;font-weight:800;margin-bottom:16px;border:1px solid rgba(13,148,136,.2)}
+.hero-badge .dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-/* Contact buttons */
-.contact-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-.contact-btn{padding:14px;border-radius:14px;border:none;font-weight:800;font-size:.82rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:'Tajawal',sans-serif;transition:.2s}
-.contact-btn .ico{font-size:1.3rem}
-.contact-btn:active{transform:scale(.96)}
-.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff}
-.btn-phone{background:linear-gradient(135deg,var(--blue),var(--blue-3));color:#fff}
-.btn-map{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff}
+.hero-title{font-size:2rem;line-height:1.15;margin-bottom:16px;letter-spacing:-.5px}
+.hero-title .highlight{background:linear-gradient(135deg,var(--teal),var(--teal-3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+@media(min-width:640px){.hero-title{font-size:2.5rem}}
+@media(min-width:900px){.hero-title{font-size:2.8rem}}
 
-/* Floating Book Button */
-.book-fab{position:fixed;bottom:16px;left:16px;right:16px;max-width:868px;margin:0 auto;background:linear-gradient(135deg,var(--blue),var(--blue-3));color:#fff;border:none;padding:16px;border-radius:18px;font-family:'Cairo',sans-serif;font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 12px 36px rgba(14,165,233,.35);z-index:90;transition:.2s}
-.book-fab:active{transform:scale(.98)}
+.hero-desc{font-size:1rem;color:var(--txt-sub);line-height:1.75;margin-bottom:24px;max-width:520px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 26px;border-radius:14px;border:none;font-family:'Tajawal',sans-serif;font-weight:800;font-size:.92rem;cursor:pointer;transition:.2s;text-decoration:none}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--teal-3));color:#fff;box-shadow:0 10px 28px var(--teal-glow)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 36px var(--teal-glow)}
+.btn-outline{background:#fff;color:var(--txt);border:1.5px solid var(--bd-2)}
+.btn-outline:hover{border-color:var(--teal);color:var(--teal);background:var(--bg-2)}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 10px 28px rgba(37,211,102,.25)}
+.btn-block{width:100%}
+.btn-lg{padding:16px 32px;font-size:1rem}
 
-/* Modal */
-.overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:.3s;z-index:1000}
+.hero-trust{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--txt-sub);font-weight:700}
+.trust-item .ico{width:24px;height:24px;border-radius:50%;background:rgba(16,185,129,.12);color:var(--green-2);display:grid;place-items:center;font-size:.7rem}
+
+/* Hero Visual */
+.hero-visual{position:relative;display:flex;justify-content:center}
+.doctor-card{position:relative;width:100%;max-width:400px;background:#fff;border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-lg);border:1px solid var(--bd)}
+.doctor-card::before{content:'';position:absolute;top:-12px;left:-12px;right:-12px;bottom:-12px;border-radius:calc(var(--radius-lg) + 12px);background:linear-gradient(135deg,rgba(13,148,136,.1),rgba(94,234,212,.1));z-index:-1}
+.doctor-photo-wrap{position:relative;margin-bottom:16px}
+.doctor-photo{width:100%;aspect-ratio:1;border-radius:20px;object-fit:cover;background:linear-gradient(135deg,var(--teal-soft),var(--blue-soft))}
+.doctor-badge{position:absolute;bottom:12px;left:12px;background:#fff;padding:6px 12px;border-radius:100px;display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:800;color:var(--green-2);box-shadow:var(--shadow)}
+.doctor-badge .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.doctor-info{text-align:center}
+.doctor-name{font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:900;margin-bottom:4px}
+.doctor-specialty{font-size:.82rem;color:var(--teal);font-weight:700;margin-bottom:12px}
+.doctor-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding-top:14px;border-top:1px solid var(--bd)}
+.doctor-stat{text-align:center}
+.doctor-stat .num{font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:900;color:var(--teal)}
+.doctor-stat .lbl{font-size:.65rem;color:var(--txt-sub);font-weight:700;margin-top:2px}
+
+/* ============ STATS BAR ============ */
+.stats-bar{background:linear-gradient(135deg,var(--teal-3),var(--teal-2));color:#fff;padding:32px 20px}
+.stats-bar-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+@media(min-width:640px){.stats-bar-inner{grid-template-columns:repeat(4,1fr)}}
+.stat-block{text-align:center;position:relative}
+.stat-block .n{font-family:'Cairo',sans-serif;font-size:2rem;font-weight:900;margin-bottom:6px;color:var(--mint)}
+.stat-block .l{font-size:.82rem;opacity:.9;font-weight:700}
+@media(min-width:640px){.stat-block:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:rgba(255,255,255,.15)}}
+
+/* ============ SECTION ============ */
+.section{padding:64px 20px}
+.section.bg-soft{background:var(--bg-2)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-head{text-align:center;margin-bottom:48px}
+.section-tag{display:inline-block;padding:6px 16px;border-radius:100px;background:rgba(13,148,136,.1);color:var(--teal-2);font-size:.75rem;font-weight:800;margin-bottom:14px;border:1px solid rgba(13,148,136,.15)}
+.section-title{font-size:1.75rem;margin-bottom:12px;letter-spacing:-.3px}
+@media(min-width:640px){.section-title{font-size:2.2rem}}
+.section-desc{font-size:.95rem;color:var(--txt-sub);max-width:600px;margin:0 auto;line-height:1.75}
+
+/* ============ SERVICES ============ */
+.services-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.services-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(min-width:960px){.services-grid{grid-template-columns:repeat(3,1fr);gap:24px}}
+.service-card{background:#fff;border-radius:var(--radius-lg);padding:28px 24px;border:1px solid var(--bd);transition:.3s;position:relative;overflow:hidden;cursor:pointer}
+.service-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle at top right,rgba(13,148,136,.08),transparent 70%);border-radius:50%}
+.service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:rgba(13,148,136,.3)}
+.service-icon{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--teal-soft),var(--blue-soft));display:grid;place-items:center;font-size:1.8rem;margin-bottom:18px;position:relative}
+.service-icon::after{content:'';position:absolute;inset:0;border-radius:18px;padding:1.5px;background:linear-gradient(135deg,rgba(13,148,136,.4),transparent);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.service-name{font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:900;margin-bottom:8px}
+.service-desc{font-size:.85rem;color:var(--txt-sub);line-height:1.65;margin-bottom:16px;min-height:3.3em}
+.service-meta{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px dashed var(--bd);margin-bottom:16px}
+.service-meta .lbl{font-size:.72rem;color:var(--txt-light);font-weight:700;display:block;margin-bottom:2px}
+.service-meta .val{font-family:'Cairo',sans-serif;font-size:1rem;font-weight:900;color:var(--teal)}
+.service-book{width:100%;padding:12px;border-radius:12px;background:var(--bg-2);color:var(--teal-2);border:none;font-family:'Tajawal',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.service-card:hover .service-book{background:linear-gradient(135deg,var(--teal),var(--teal-2));color:#fff}
+
+/* ============ WHY US ============ */
+.why-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.why-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(min-width:960px){.why-grid{grid-template-columns:repeat(4,1fr)}}
+.why-card{background:#fff;border-radius:var(--radius);padding:24px 20px;border:1px solid var(--bd);text-align:center;transition:.3s}
+.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:rgba(13,148,136,.2)}
+.why-icon{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--teal-soft),#a7f3d0);display:grid;place-items:center;font-size:1.5rem;margin:0 auto 16px}
+.why-title{font-family:'Cairo',sans-serif;font-size:.95rem;font-weight:900;margin-bottom:8px}
+.why-desc{font-size:.82rem;color:var(--txt-sub);line-height:1.6}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:1fr;gap:32px;align-items:center}
+@media(min-width:860px){.about-grid{grid-template-columns:1fr 1.2fr;gap:56px}}
+.about-visual{position:relative}
+.about-img{width:100%;aspect-ratio:4/5;border-radius:var(--radius-lg);object-fit:cover;background:linear-gradient(135deg,var(--teal-soft),var(--blue-soft));box-shadow:var(--shadow-md)}
+.about-badge{position:absolute;bottom:-16px;right:-8px;background:#fff;padding:14px 18px;border-radius:16px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:10px}
+.about-badge .ico{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--teal),var(--teal-3));color:#fff;display:grid;place-items:center;font-size:1.2rem}
+.about-badge .txt .n{font-family:'Cairo',sans-serif;font-size:1.1rem;font-weight:900;color:var(--teal);line-height:1}
+.about-badge .txt .l{font-size:.7rem;color:var(--txt-sub);font-weight:700;margin-top:3px}
+.about-content h2{font-size:1.75rem;margin-bottom:16px;letter-spacing:-.3px}
+@media(min-width:640px){.about-content h2{font-size:2.1rem}}
+.about-content p{font-size:.92rem;color:var(--txt-sub);line-height:1.85;margin-bottom:16px}
+.about-list{list-style:none;margin-top:24px;display:grid;gap:12px}
+.about-list li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--txt-2);font-weight:700}
+.about-list li::before{content:'✓';flex-shrink:0;width:22px;height:22px;border-radius:50%;background:rgba(16,185,129,.12);color:var(--green-2);display:grid;place-items:center;font-weight:900;font-size:.75rem}
+
+/* ============ TESTIMONIALS ============ */
+.testi-grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:640px){.testi-grid{grid-template-columns:repeat(2,1fr);gap:20px}}
+@media(min-width:960px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
+.testi-card{background:#fff;border-radius:var(--radius-lg);padding:24px;border:1px solid var(--bd);position:relative}
+.testi-quote{font-size:2.5rem;line-height:1;color:var(--teal-soft);font-family:'Cairo',sans-serif;margin-bottom:8px}
+.testi-text{font-size:.88rem;color:var(--txt-2);line-height:1.75;margin-bottom:18px}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--bd)}
+.testi-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-3));color:#fff;display:grid;place-items:center;font-family:'Cairo',sans-serif;font-weight:900;font-size:1rem;flex-shrink:0}
+.testi-name{font-family:'Cairo',sans-serif;font-size:.9rem;font-weight:900}
+.testi-role{font-size:.72rem;color:var(--txt-sub);font-weight:600}
+.testi-stars{color:var(--amber);font-size:.85rem;margin-bottom:10px;letter-spacing:1px}
+
+/* ============ FAQ ============ */
+.faq-list{max-width:780px;margin:0 auto;display:grid;gap:12px}
+.faq-item{background:#fff;border-radius:var(--radius);border:1px solid var(--bd);overflow:hidden;transition:.2s}
+.faq-item.open{border-color:rgba(13,148,136,.3);box-shadow:var(--shadow)}
+.faq-q{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:800;font-size:.92rem;color:var(--txt)}
+.faq-q .arr{width:28px;height:28px;border-radius:50%;background:var(--bg-2);display:grid;place-items:center;transition:.3s;color:var(--teal);font-weight:900;flex-shrink:0}
+.faq-item.open .arr{background:var(--teal);color:#fff;transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;padding:0 20px}
+.faq-item.open .faq-a{max-height:400px;padding-bottom:20px}
+.faq-a p{font-size:.86rem;color:var(--txt-sub);line-height:1.8}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:860px){.contact-grid{grid-template-columns:1fr 1fr;gap:32px}}
+.contact-cards{display:grid;gap:14px}
+.contact-card{background:#fff;border-radius:var(--radius);padding:20px;border:1px solid var(--bd);display:flex;align-items:center;gap:14px;text-decoration:none;transition:.2s}
+.contact-card:hover{border-color:rgba(13,148,136,.3);box-shadow:var(--shadow);transform:translateX(-4px)}
+.contact-card .ico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:1.4rem;color:#fff;flex-shrink:0}
+.contact-card.wa .ico{background:linear-gradient(135deg,#25D366,#128C7E)}
+.contact-card.phone .ico{background:linear-gradient(135deg,var(--blue),#0369a1)}
+.contact-card.map .ico{background:linear-gradient(135deg,var(--amber),#d97706)}
+.contact-card .t{font-family:'Cairo',sans-serif;font-size:.92rem;font-weight:900;color:var(--txt);margin-bottom:3px}
+.contact-card .s{font-size:.78rem;color:var(--txt-sub);font-weight:600}
+
+.map-frame{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--bd);height:100%;min-height:320px;background:var(--bg-2)}
+.map-frame iframe{width:100%;height:100%;border:0;display:block}
+
+/* ============ FOOTER ============ */
+.footer{background:linear-gradient(135deg,#0f172a,#1e293b);color:#cbd5e1;padding:48px 20px 24px;margin-top:0}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:32px}
+@media(min-width:768px){.footer-grid{grid-template-columns:2fr 1fr 1fr}}
+.footer h3{font-family:'Cairo',sans-serif;color:#fff;font-size:1.05rem;font-weight:900;margin-bottom:16px}
+.footer p{font-size:.85rem;line-height:1.75;color:#94a3b8}
+.footer-links{list-style:none;display:grid;gap:10px}
+.footer-links a{color:#94a3b8;text-decoration:none;font-size:.85rem;font-weight:600;transition:.2s}
+.footer-links a:hover{color:var(--mint)}
+.footer-bottom{padding-top:24px;border-top:1px solid rgba(148,163,184,.15);display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:space-between;font-size:.78rem;color:#64748b}
+@media(min-width:640px){.footer-bottom{flex-direction:row}}
+
+/* ============ FAB ============ */
+.fab{position:fixed;bottom:16px;left:16px;right:16px;max-width:1068px;margin:0 auto;background:linear-gradient(135deg,var(--teal),var(--teal-3));color:#fff;border:none;padding:16px 24px;border-radius:18px;font-family:'Cairo',sans-serif;font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 16px 40px var(--teal-glow);z-index:90;transition:.2s}
+.fab:hover{transform:translateY(-2px);box-shadow:0 20px 50px var(--teal-glow)}
+.fab:active{transform:scale(.98)}
+
+/* ============ MODAL ============ */
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:.3s;z-index:1000}
 .overlay.show{opacity:1;pointer-events:auto}
 .modal{position:fixed;inset:auto 0 0 0;max-height:92vh;background:#fff;border-radius:24px 24px 0 0;transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.9,.3,1);z-index:1001;display:flex;flex-direction:column;overflow:hidden}
 .modal.show{transform:translateY(0)}
 @media(min-width:760px){.modal{inset:0 0 0 auto;width:520px;border-radius:0;max-height:100vh;transform:translateX(110%)}.modal.show{transform:translateX(0)}}
-.modal-hdr{padding:18px 22px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;background:#fff}
-.modal-hdr h3{font-size:1.05rem;font-weight:900;color:var(--txt)}
-.close-x{width:38px;height:38px;border-radius:12px;background:var(--bg);border:none;color:var(--txt-sub);font-size:1.1rem;cursor:pointer;display:grid;place-items:center}
-.modal-body{flex:1;overflow-y:auto;padding:20px 22px}
-.modal-footer{padding:16px 22px;border-top:1px solid var(--bd);background:#fff;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.modal-hdr{padding:20px 24px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;background:#fff;flex-shrink:0}
+.modal-hdr h3{font-family:'Cairo',sans-serif;font-size:1.05rem;font-weight:900;color:var(--txt)}
+.modal-hdr .step{font-size:.72rem;color:var(--txt-sub);font-weight:700;margin-top:2px}
+.close-x{width:38px;height:38px;border-radius:12px;background:var(--bg-2);border:none;color:var(--txt-sub);font-size:1rem;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.close-x:hover{background:#fee2e2;color:var(--red)}
+.modal-body{flex:1;overflow-y:auto;padding:22px 24px}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--bd);background:#fff;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));flex-shrink:0}
 
-/* Form */
+/* Progress */
+.progress{display:flex;gap:6px;padding:12px 24px 0;background:#fff;flex-shrink:0}
+.progress-step{flex:1;height:4px;border-radius:100px;background:var(--bd);transition:.3s}
+.progress-step.active{background:linear-gradient(90deg,var(--teal),var(--mint))}
+
+/* Forms */
 .field{margin-bottom:14px}
-.field label{display:block;font-size:.78rem;color:var(--txt);font-weight:800;margin-bottom:6px}
-.field input,.field textarea,.field select{width:100%;padding:12px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-size:.9rem;outline:none;font-family:'Tajawal',sans-serif;transition:.2s}
-.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px var(--blue-glow)}
-.field textarea{resize:none;min-height:70px}
+.field label{display:block;font-size:.78rem;color:var(--txt);font-weight:800;margin-bottom:7px}
+.field input,.field textarea,.field select{width:100%;padding:13px 14px;border-radius:12px;background:var(--bg);border:1.5px solid var(--bd);color:var(--txt);font-size:.9rem;outline:none;font-family:'Tajawal',sans-serif;transition:.2s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--teal);background:#fff;box-shadow:0 0 0 4px var(--teal-glow)}
+.field textarea{resize:none;min-height:80px}
 
 /* Days */
-.days-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none}
+.days-scroll{display:flex;gap:8px;overflow-x:auto;padding:4px 0 10px;scrollbar-width:none}
 .days-scroll::-webkit-scrollbar{display:none}
-.day-pill{min-width:64px;padding:12px 8px;border-radius:14px;background:var(--bg);border:2px solid transparent;cursor:pointer;text-align:center;transition:.2s;flex-shrink:0}
-.day-pill:hover{background:var(--blue-light)}
-.day-pill.active{background:var(--blue);color:#fff;border-color:var(--blue-3)}
-.day-name{font-size:.72rem;font-weight:700;opacity:.8;margin-bottom:2px}
-.day-num{font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:900}
+.day-pill{min-width:70px;padding:12px 8px;border-radius:14px;background:var(--bg);border:1.5px solid var(--bd);cursor:pointer;text-align:center;transition:.2s;flex-shrink:0}
+.day-pill:hover{background:var(--bg-2);border-color:var(--teal-soft)}
+.day-pill.active{background:linear-gradient(135deg,var(--teal),var(--teal-2));color:#fff;border-color:var(--teal-3);box-shadow:0 8px 20px var(--teal-glow)}
+.day-pill .dn{font-size:.72rem;font-weight:700;opacity:.75;margin-bottom:3px}
+.day-pill.active .dn{opacity:.9}
+.day-pill .dd{font-family:'Cairo',sans-serif;font-size:1.15rem;font-weight:900}
 
-/* Time slots */
-.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;margin-top:6px}
-.slot{padding:11px 6px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);cursor:pointer;text-align:center;font-weight:800;font-size:.82rem;transition:.2s;color:var(--txt)}
-.slot:hover{border-color:var(--blue);background:var(--blue-light)}
-.slot.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-.slot.taken{opacity:.35;cursor:not-allowed;text-decoration:line-through;background:#fee2e2;color:#991b1b;border-color:#fecaca}
-.slot.taken:hover{background:#fee2e2;border-color:#fecaca}
+/* Slots */
+.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px;margin-top:8px}
+.slot{padding:11px 6px;border-radius:11px;background:var(--bg);border:1.5px solid var(--bd);cursor:pointer;text-align:center;font-weight:800;font-size:.82rem;transition:.2s;color:var(--txt)}
+.slot:hover{border-color:var(--teal);background:var(--bg-2);color:var(--teal)}
+.slot.active{background:linear-gradient(135deg,var(--teal),var(--teal-2));color:#fff;border-color:var(--teal-3);box-shadow:0 6px 14px var(--teal-glow)}
+.slot.taken{opacity:.4;cursor:not-allowed;text-decoration:line-through;background:#fef2f2;color:#991b1b;border-color:#fecaca}
+.slot.taken:hover{background:#fef2f2;border-color:#fecaca}
 
 /* Summary */
-.booking-summary{background:linear-gradient(135deg,var(--blue-light),#f0f9ff);border:1px solid #bae6fd;border-radius:14px;padding:14px 16px;margin-bottom:16px}
-.summary-row{display:flex;justify-content:space-between;font-size:.85rem;padding:5px 0;font-weight:700}
+.summary{background:linear-gradient(135deg,var(--bg-2),var(--white));border:1px solid rgba(13,148,136,.15);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.summary-row{display:flex;justify-content:space-between;font-size:.85rem;padding:6px 0;font-weight:700}
 .summary-row .lbl{color:var(--txt-sub)}
 .summary-row .val{color:var(--txt);font-weight:900}
-.summary-row.total{border-top:1px dashed #93c5fd;padding-top:10px;margin-top:6px;font-size:1rem}
-.summary-row.total .val{color:var(--blue-2);font-family:'Cairo',sans-serif}
+.summary-row.total{border-top:1px dashed rgba(13,148,136,.3);padding-top:10px;margin-top:6px;font-size:1rem}
+.summary-row.total .val{color:var(--teal);font-family:'Cairo',sans-serif;font-size:1.1rem}
 
-/* Buttons */
-.btn{padding:14px 20px;border-radius:14px;border:none;font-weight:900;font-size:.95rem;cursor:pointer;font-family:'Tajawal',sans-serif;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%}
-.btn:active{transform:scale(.98)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-3));color:#fff;box-shadow:0 8px 24px var(--blue-glow)}
-.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff}
+/* Success */
+.success{text-align:center;padding:20px 10px}
+.success-ico{width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-2));color:#fff;font-size:2.5rem;display:grid;place-items:center;margin:0 auto 20px;box-shadow:0 16px 40px rgba(16,185,129,.3);animation:pop .5s cubic-bezier(.5,1.5,.5,1)}
+@keyframes pop{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
+.success h3{font-family:'Cairo',sans-serif;font-size:1.3rem;font-weight:900;margin-bottom:10px}
+.success p{color:var(--txt-sub);font-size:.88rem;line-height:1.75;margin-bottom:20px}
+.success-details{background:var(--bg-2);border-radius:14px;padding:16px;margin-bottom:20px;text-align:right;border:1px solid var(--bd)}
+.success-details .row{display:flex;justify-content:space-between;font-size:.85rem;padding:6px 0}
+.success-details .row .l{color:var(--txt-sub);font-weight:700}
+.success-details .row .v{font-weight:900;color:var(--txt)}
 
 /* Toast */
-.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--txt);color:#fff;padding:13px 22px;border-radius:14px;font-weight:800;font-size:.85rem;z-index:2000;opacity:0;transition:.35s;pointer-events:none;max-width:calc(100vw - 40px);text-align:center;box-shadow:0 12px 32px rgba(0,0,0,.25)}
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--txt);color:#fff;padding:14px 24px;border-radius:14px;font-weight:800;font-size:.86rem;z-index:2000;opacity:0;transition:.35s;pointer-events:none;max-width:calc(100vw - 40px);text-align:center;box-shadow:0 16px 40px rgba(0,0,0,.25)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.success{background:linear-gradient(135deg,var(--green),var(--green-2))}
 .toast.err{background:linear-gradient(135deg,var(--red),#b91c1c)}
 
 /* Loader */
 .loader{text-align:center;padding:60px 20px;color:var(--txt-sub)}
-.spinner{width:44px;height:44px;margin:0 auto 14px;border:3px solid var(--blue-light);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}
+.spinner{width:44px;height:44px;margin:0 auto 14px;border:3px solid var(--teal-soft);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 .hide{display:none!important}
-
-/* Success screen */
-.success-screen{text-align:center;padding:30px 10px}
-.success-icon{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-2));color:#fff;font-size:2.5rem;display:grid;place-items:center;margin:0 auto 20px;box-shadow:0 12px 36px rgba(16,185,129,.3);animation:pop .4s}
-@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
-.success-title{font-family:'Cairo',sans-serif;font-size:1.3rem;font-weight:900;margin-bottom:10px}
-.success-text{color:var(--txt-sub);font-size:.88rem;line-height:1.7;margin-bottom:20px}
-.success-details{background:var(--bg);border-radius:14px;padding:14px;margin-bottom:20px;text-align:right}
-.success-details .row{display:flex;justify-content:space-between;font-size:.85rem;padding:6px 0}
-.success-details .row .l{color:var(--txt-sub);font-weight:700}
-.success-details .row .v{font-weight:900}
-
-/* Footer */
-.footer{padding:32px 16px 24px;text-align:center;color:var(--txt-light);font-size:.78rem;margin-top:32px}
-.footer .clinic-line{font-weight:800;color:var(--txt-sub);margin-bottom:4px}
 </style>
 </head>
 <body>
 
+<!-- Top Bar -->
+<div class="topbar">
+  <span>⚕️ نستقبل الحجوزات — <strong>احجز الآن واستفد من خصم 20%</strong> على أول زيارة</span>
+</div>
+
+<!-- Header -->
 <header class="hdr">
   <div class="hdr-inner">
-    <div class="clinic-logo">
-      <div class="logo-circle">🦷</div>
-      <div>
-        <div class="clinic-name" id="hdrClinicName">عيادة الابتسامة</div>
-        <div class="clinic-sub" id="hdrDoctorName">د. أحمد الحلاق</div>
+    <div class="clinic-brand">
+      <div class="brand-icon">🦷</div>
+      <div class="brand-text">
+        <div class="name" id="hdrClinic">عيادة الابتسامة</div>
+        <div class="sub" id="hdrDoctor">د. أحمد الحلاق</div>
       </div>
     </div>
-    <div class="status-badge" id="statusBadge">
-      <span class="status-dot"></span>
-      <span id="statusText">نستقبل الحجوزات</span>
-    </div>
+    <nav class="hdr-nav">
+      <a href="#services">الخدمات</a>
+      <a href="#why">لماذا نحن</a>
+      <a href="#about">عن الطبيب</a>
+      <a href="#contact">التواصل</a>
+      <a href="#" class="hdr-cta" onclick="openBooking();return false;">احجز موعد</a>
+    </nav>
   </div>
 </header>
 
+<!-- Hero -->
 <section class="hero">
+  <div class="hero-bg"></div>
   <div class="hero-inner">
-    <img id="doctorPhoto" class="doctor-photo" src="" alt="doctor">
-    <h1 class="doctor-name" id="heroDoctorName">د. أحمد الحلاق</h1>
-    <div class="doctor-spec" id="heroSpec">أخصائي طب وجراحة الأسنان</div>
-    <p class="doctor-bio" id="heroBio">15 سنة خبرة في تجميل وزرع الأسنان. نقدم لك أفضل الخدمات بأحدث التقنيات العالمية.</p>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-num" id="statExp">15+</div><div class="stat-lbl">سنة خبرة</div></div>
-      <div class="stat"><div class="stat-num" id="statPatients">2000+</div><div class="stat-lbl">مريض سعيد</div></div>
-      <div class="stat"><div class="stat-num" id="statRating">⭐ 4.9</div><div class="stat-lbl">تقييم</div></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> متاح للحجز الآن</div>
+      <h1 class="hero-title">
+        ابتسامة صحية،<br>
+        <span class="highlight">بأيدٍ خبيرة</span>
+      </h1>
+      <p class="hero-desc" id="heroDesc">
+        عيادة متخصصة في طب وتجميل الأسنان. نقدم لك أحدث التقنيات العلاجية ورعاية شخصية تجعل تجربتك مريحة ومميزة.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="openBooking()">
+          📅 احجز موعدك الآن
+        </button>
+        <a class="btn btn-outline btn-lg" onclick="scrollToSection('services')">
+          تعرّف على خدماتنا
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="ico">✓</span> معقّم بالكامل</div>
+        <div class="trust-item"><span class="ico">✓</span> أجهزة حديثة</div>
+        <div class="trust-item"><span class="ico">✓</span> فريق محترف</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="doctor-card">
+        <div class="doctor-photo-wrap">
+          <img id="doctorPhoto" class="doctor-photo" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><rect fill='%23ccfbf1' width='400' height='400'/><text x='200' y='230' font-size='180' text-anchor='middle'>👨‍⚕️</text></svg>" alt="Doctor">
+          <div class="doctor-badge"><span class="dot"></span> متاح الآن</div>
+        </div>
+        <div class="doctor-info">
+          <div class="doctor-name" id="doctorName">د. أحمد الحلاق</div>
+          <div class="doctor-specialty" id="doctorSpec">أخصائي طب وجراحة الأسنان</div>
+        </div>
+        <div class="doctor-stats">
+          <div class="doctor-stat"><div class="num" id="statExp">15+</div><div class="lbl">سنة خبرة</div></div>
+          <div class="doctor-stat"><div class="num" id="statPatients">2000+</div><div class="lbl">مريض</div></div>
+          <div class="doctor-stat"><div class="num" id="statRating">⭐ 4.9</div><div class="lbl">تقييم</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<main class="wrap">
-  <h2 class="section-title">خدماتنا الطبية</h2>
-  <div class="services-grid" id="servicesGrid">
-    <div class="loader" style="grid-column:1/-1"><div class="spinner"></div>جاري تحميل الخدمات...</div>
+<!-- Stats Bar -->
+<section class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-block"><div class="n" id="barYears">15+</div><div class="l">سنوات خبرة</div></div>
+    <div class="stat-block"><div class="n" id="barPatients">2000+</div><div class="l">مريض سعيد</div></div>
+    <div class="stat-block"><div class="n">6</div><div class="l">خدمات متخصصة</div></div>
+    <div class="stat-block"><div class="n" id="barRating">4.9 ★</div><div class="l">تقييم عام</div></div>
   </div>
+</section>
 
-  <h2 class="section-title" style="margin-top:36px">تواصل معنا</h2>
-  <div class="contact-btns">
-    <button class="contact-btn btn-wa" onclick="contactWA()"><span class="ico">💬</span>واتساب</button>
-    <button class="contact-btn btn-phone" onclick="contactPhone()"><span class="ico">📞</span>اتصال</button>
-    <button class="contact-btn btn-map" onclick="openLocation()"><span class="ico">📍</span>موقعنا</button>
+<!-- Services -->
+<section class="section" id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">خدماتنا الطبية</div>
+      <h2 class="section-title">رعاية شاملة لأسنانك</h2>
+      <p class="section-desc">نقدم مجموعة متكاملة من الخدمات العلاجية والتجميلية بأحدث الأجهزة العالمية</p>
+    </div>
+    <div class="services-grid" id="servicesGrid">
+      <div class="loader" style="grid-column:1/-1"><div class="spinner"></div>جاري التحميل...</div>
+    </div>
   </div>
-</main>
+</section>
 
+<!-- Why Us -->
+<section class="section bg-soft" id="why">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">لماذا تختارنا</div>
+      <h2 class="section-title">تجربة علاجية مختلفة</h2>
+      <p class="section-desc">نؤمن بأن راحتك وثقتك هي أساس العلاقة بيننا</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">🛡️</div><div class="why-title">تعقيم كامل</div><div class="why-desc">نلتزم بأعلى معايير التعقيم العالمية لكل أدواتنا</div></div>
+      <div class="why-card"><div class="why-icon">🔬</div><div class="why-title">أحدث الأجهزة</div><div class="why-desc">نستخدم أجهزة رقمية حديثة لتشخيص دقيق وعلاج فعّال</div></div>
+      <div class="why-card"><div class="why-icon">💉</div><div class="why-title">بدون ألم</div><div class="why-desc">تقنيات تخدير متطورة تجعل تجربتك مريحة تماماً</div></div>
+      <div class="why-card"><div class="why-icon">⏱️</div><div class="why-title">التزام بالمواعيد</div><div class="why-desc">نحترم وقتك، ونستقبلك في الموعد المحدد بدقة</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <img class="about-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><rect fill='%23ccfbf1' width='400' height='500'/><text x='200' y='290' font-size='180' text-anchor='middle'>🩺</text></svg>" alt="About">
+        <div class="about-badge">
+          <div class="ico">⭐</div>
+          <div class="txt">
+            <div class="n" id="aboutYears">15+</div>
+            <div class="l">سنة خبرة</div>
+          </div>
+        </div>
+      </div>
+      <div class="about-content">
+        <h2>عن الطبيب</h2>
+        <p id="aboutBio">نؤمن بأن كل مريض يستحق رعاية شخصية متميزة. تأسست عيادتنا لتقدم خدمات طب الأسنان بأحدث المعايير العالمية وبأسعار في متناول الجميع.</p>
+        <ul class="about-list">
+          <li>بكالوريوس طب وجراحة الفم والأسنان - جامعة دمشق</li>
+          <li>ماجستير في تجميل الأسنان - جامعة بيروت</li>
+          <li>عضو في الاتحاد العربي لطب الأسنان</li>
+          <li>دورات متقدمة في زراعة الأسنان في تركيا</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section bg-soft">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">آراء مرضانا</div>
+      <h2 class="section-title">ثقة تبنيها التجربة</h2>
+      <p class="section-desc">أكثر من 2000 مريض اختارونا، وهذه بعض من آرائهم</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">تجربة رائعة من أول لحظة. الدكتور محترف جداً، والعيادة نظيفة ومرتبة. أنصح الجميع بزيارتها.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">م</div>
+          <div>
+            <div class="testi-name">محمد الأحمد</div>
+            <div class="testi-role">مريض</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">كنت خايفة من علاج العصب، بس الدكتور خلاني مرتاحة تماماً. بدون أي ألم، ونتيجة ممتازة.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">س</div>
+          <div>
+            <div class="testi-name">سارة الخليل</div>
+            <div class="testi-role">مريضة</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">أفضل عيادة أسنان زرتها. الأسعار منطقية والخدمة احترافية. عملية الزرع نجحت بدون أي مشاكل.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">أ</div>
+          <div>
+            <div class="testi-name">أحمد يوسف</div>
+            <div class="testi-role">مريض</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">أسئلة شائعة</div>
+      <h2 class="section-title">إجابات على استفساراتك</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">هل الحجز إلزامي أم يمكنني الحضور بدون موعد؟<span class="arr">⌄</span></div>
+        <div class="faq-a"><p>ننصح بالحجز المسبق لضمان عدم الانتظار. يمكنك الحجز مباشرة من الموقع خلال أقل من دقيقة، وسيتم تأكيد موعدك فوراً.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">هل عملية العلاج مؤلمة؟<span class="arr">⌄</span></div>
+        <div class="faq-a"><p>نستخدم أحدث تقنيات التخدير الموضعي، مما يجعل معظم العلاجات بدون ألم تقريباً. نشعرك بالراحة التامة خلال الزيارة.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">ما هي طرق الدفع المتاحة؟<span class="arr">⌄</span></div>
+        <div class="faq-a"><p>نقبل الدفع نقداً، وبطاقات الدفع الإلكتروني، وإمكانية التقسيط للعلاجات الكبيرة مثل زراعة الأسنان.</p></div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">هل تقبلون حالات الطوارئ؟<span class="arr">⌄</span></div>
+        <div class="faq-a"><p>نعم، نوفر خطاً ساخناً لحالات الطوارئ مثل ألم الأسنان الحاد أو كسر الأسنان. تواصل معنا مباشرة عبر الواتساب.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section bg-soft" id="contact">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag">تواصل معنا</div>
+      <h2 class="section-title">نحن هنا لخدمتك</h2>
+      <p class="section-desc">اختر طريقة التواصل الأنسب لك — فريقنا جاهز للرد على استفساراتك</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-cards">
+        <a class="contact-card wa" onclick="contactWA();return false;">
+          <div class="ico">💬</div>
+          <div>
+            <div class="t">واتساب</div>
+            <div class="s" id="waText">تواصل سريع عبر الواتساب</div>
+          </div>
+        </a>
+        <a class="contact-card phone" onclick="contactPhone();return false;">
+          <div class="ico">📞</div>
+          <div>
+            <div class="t">اتصال هاتفي</div>
+            <div class="s" id="phoneText">اتصل بنا مباشرة</div>
+          </div>
+        </a>
+        <a class="contact-card map" id="mapLink" target="_blank">
+          <div class="ico">📍</div>
+          <div>
+            <div class="t">موقع العيادة</div>
+            <div class="s" id="addressText">دمشق - المزة</div>
+          </div>
+        </a>
+      </div>
+      <div class="map-frame" id="mapFrame">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Damascus,Mazzeh&output=embed"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
 <footer class="footer">
-  <div class="clinic-line" id="footerClinic">عيادة الابتسامة</div>
-  <div id="footerAddress">دمشق — المزة</div>
-  <div style="margin-top:8px;opacity:.7">جميع الحقوق محفوظة © 2025</div>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <h3 id="footerClinic">عيادة الابتسامة</h3>
+        <p id="footerDesc">نقدم خدمات طب الأسنان بأحدث التقنيات وبأيدٍ خبيرة. صحتك وابتسامتك هي مهمتنا.</p>
+      </div>
+      <div>
+        <h3>روابط سريعة</h3>
+        <ul class="footer-links">
+          <li><a href="#services">الخدمات</a></li>
+          <li><a href="#about">عن الطبيب</a></li>
+          <li><a href="#contact">التواصل</a></li>
+          <li><a href="#" onclick="openBooking();return false;">احجز موعد</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>معلومات التواصل</h3>
+        <ul class="footer-links">
+          <li id="footerPhone">📞 +963 945 333 924</li>
+          <li id="footerAddress">📍 دمشق - المزة</li>
+          <li id="footerHours">🕐 09:00 ص - 09:00 م</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>جميع الحقوق محفوظة © <span id="year"></span> <span id="footerClinic2">عيادة الابتسامة</span></div>
+      <div>صُنع بـ ❤️ في دمشق</div>
+    </div>
+  </div>
 </footer>
 
-<button class="book-fab" onclick="openBooking()">📅 احجز موعدك الآن</button>
+<!-- FAB -->
+<button class="fab" onclick="openBooking()">📅 احجز موعدك الآن</button>
 
+<!-- Modal -->
 <div class="overlay" id="overlay" onclick="closeBooking()"></div>
-
 <aside class="modal" id="bookingModal">
   <div class="modal-hdr">
-    <h3 id="modalTitle">📅 حجز موعد جديد</h3>
+    <div>
+      <h3 id="modalTitle">حجز موعد جديد</h3>
+      <div class="step" id="modalStep">الخطوة 1 من 3</div>
+    </div>
     <button class="close-x" onclick="closeBooking()">✕</button>
   </div>
-  <div class="modal-body" id="modalBody">
-    <!-- Content changes dynamically -->
+  <div class="progress" id="progress">
+    <div class="progress-step active"></div>
+    <div class="progress-step"></div>
+    <div class="progress-step"></div>
   </div>
+  <div class="modal-body" id="modalBody"></div>
   <div class="modal-footer" id="modalFooter" style="display:none">
-    <button class="btn btn-primary" id="confirmBtn" onclick="confirmBooking()">تأكيد الحجز</button>
+    <button class="btn btn-primary btn-block" id="confirmBtn" onclick="confirmBooking()">تأكيد الحجز</button>
   </div>
 </aside>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ================= Firebase ================= */
 const FIREBASE_URL = "https://alsalah-695f5-default-rtdb.europe-west1.firebasedatabase.app";
 const PATH = "/dentist-demo";
 const API_SETTINGS = FIREBASE_URL + PATH + "/settings.json";
@@ -244,14 +632,9 @@ const API_BOOKINGS = FIREBASE_URL + PATH + "/bookings.json";
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-let settings = {};
-let services = [];
-let bookings = [];
-let selectedService = null;
-let selectedDate = null;
-let selectedTime = null;
+let settings = {}, services = [], bookings = [];
+let step = 1, selectedService = null, selectedDate = null, selectedTime = null;
 
-/* ================= Toast ================= */
 let toastT;
 function toast(msg, type='success'){
   const t = $('#toast');
@@ -261,7 +644,11 @@ function toast(msg, type='success'){
   toastT = setTimeout(()=>t.className = 'toast', 3000);
 }
 
-/* ================= Load Data ================= */
+function scrollToSection(id){
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
 async function loadAll(){
   try{
     const [rs, rv, rb] = await Promise.all([
@@ -271,38 +658,57 @@ async function loadAll(){
     ]);
     settings = await rs.json() || {};
     const sv = await rv.json();
-    services = sv ? Object.values(sv) : [];
+    services = sv ? Object.values(sv).sort((a,b)=>a.id-b.id) : [];
     const bk = await rb.json();
     bookings = bk ? Object.values(bk) : [];
     renderPage();
   }catch(e){
     console.error(e);
-    toast('تعذر الاتصال بالخدمة', 'err');
   }
 }
 
-/* ================= Render ================= */
 function renderPage(){
   // Header
-  $('#hdrClinicName').innerText = settings.clinic_name || 'عيادة الابتسامة';
-  $('#hdrDoctorName').innerText = settings.doctor_name || 'د. أحمد الحلاق';
-  $('#statusText').innerText = settings.status_text || 'نستقبل الحجوزات';
-  const closed = /مغلق|مقفل/i.test(settings.status_text || '');
-  $('#statusBadge').classList.toggle('closed', closed);
-
-  // Hero
-  $('#heroDoctorName').innerText = settings.doctor_name || 'د. أحمد الحلاق';
-  $('#heroSpec').innerText = settings.specialty || 'أخصائي طب وجراحة الأسنان';
-  $('#heroBio').innerText = settings.bio || 'نقدم لكم أفضل خدمات طب الأسنان بأحدث التقنيات.';
+  $('#hdrClinic').innerText = settings.clinic_name || 'عيادة الابتسامة';
+  $('#hdrDoctor').innerText = settings.doctor_name || 'د. أحمد الحلاق';
+  $('#doctorName').innerText = settings.doctor_name || 'د. أحمد الحلاق';
+  $('#doctorSpec').innerText = settings.specialty || 'أخصائي طب وجراحة الأسنان';
   $('#statExp').innerText = (settings.experience_years || '15') + '+';
   $('#statPatients').innerText = (settings.patients_count || '2000') + '+';
   $('#statRating').innerText = '⭐ ' + (settings.rating || '4.9');
-  if(settings.doctor_photo) $('#doctorPhoto').src = settings.doctor_photo;
-  else $('#doctorPhoto').src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23e0f2fe" width="100" height="100"/><text x="50" y="62" font-size="50" text-anchor="middle">🦷</text></svg>';
+  $('#barYears').innerText = (settings.experience_years || '15') + '+';
+  $('#barPatients').innerText = (settings.patients_count || '2000') + '+';
+  $('#barRating').innerText = (settings.rating || '4.9') + ' ★';
+  $('#aboutYears').innerText = (settings.experience_years || '15') + '+';
+  if(settings.bio) $('#aboutBio').innerText = settings.bio;
+  if(settings.hero_desc) $('#heroDesc').innerText = settings.hero_desc;
 
   // Footer
   $('#footerClinic').innerText = settings.clinic_name || 'عيادة الابتسامة';
-  $('#footerAddress').innerText = settings.address || 'دمشق — المزة';
+  $('#footerClinic2').innerText = settings.clinic_name || 'عيادة الابتسامة';
+  $('#footerPhone').innerText = '📞 ' + (settings.phone || '+963 945 333 924');
+  $('#footerAddress').innerText = '📍 ' + (settings.address || 'دمشق - المزة');
+  $('#footerHours').innerText = '🕐 ' + (settings.opening_time || '09:00') + ' - ' + (settings.closing_time || '21:00');
+  $('#phoneText').innerText = settings.phone || '+963 945 333 924';
+  $('#addressText').innerText = settings.address || 'دمشق - المزة';
+  $('#year').innerText = new Date().getFullYear();
+
+  // WA text
+  if(settings.whatsapp){
+    $('#waText').innerText = '+' + settings.whatsapp;
+  }
+
+  // Map
+  if(settings.location_url){
+    $('#mapLink').href = settings.location_url;
+  } else {
+    $('#mapLink').href = '#';
+  }
+  if(settings.map_embed){
+    $('#mapFrame').innerHTML = `<iframe loading="lazy" src="${esc(settings.map_embed)}"></iframe>`;
+  } else if(settings.address){
+    $('#mapFrame').innerHTML = `<iframe loading="lazy" src="https://www.google.com/maps?q=${encodeURIComponent(settings.address)}&output=embed"></iframe>`;
+  }
 
   // Services
   const grid = $('#servicesGrid');
@@ -312,16 +718,22 @@ function renderPage(){
   }
   grid.innerHTML = services.map(s => `
     <div class="service-card" onclick="selectService(${s.id})">
-      <span class="service-icon">${esc(s.icon || '🦷')}</span>
+      <div class="service-icon">${esc(s.icon || '🦷')}</div>
       <div class="service-name">${esc(s.name)}</div>
-      <div class="service-duration">⏱ ${esc(s.duration)} دقيقة</div>
-      <div class="service-price">${esc(s.price)}</div>
-      <button class="service-book-btn">احجز الآن ←</button>
+      <div class="service-desc">${esc(s.description || '')}</div>
+      <div class="service-meta">
+        <div><span class="lbl">المدة</span><span class="val">${esc(s.duration)} د</span></div>
+        <div><span class="lbl">السعر</span><span class="val">${esc(s.price)}</span></div>
+      </div>
+      <button class="service-book">احجز هذه الخدمة ←</button>
     </div>
   `).join('');
 }
 
-/* ================= Contact ================= */
+function toggleFaq(el){
+  el.classList.toggle('open');
+}
+
 function contactWA(){
   const wa = settings.whatsapp || '963945333924';
   const msg = 'مرحباً، أرغب بالاستفسار عن خدمات العيادة';
@@ -329,59 +741,56 @@ function contactWA(){
 }
 function contactPhone(){
   const p = settings.phone || '+963945333924';
-  window.location.href = 'tel:' + p;
-}
-function openLocation(){
-  const url = settings.location_url || 'https://maps.google.com';
-  window.open(url, '_blank');
+  window.location.href = 'tel:' + p.replace(/\s/g, '');
 }
 
-/* ================= Booking Flow ================= */
-let step = 1;
-
+/* ============ Booking ============ */
 function openBooking(){
   step = 1;
   selectedService = null;
   selectedDate = null;
   selectedTime = null;
-  $('#modalTitle').innerText = '📅 حجز موعد جديد';
   renderStep();
   $('#overlay').classList.add('show');
   $('#bookingModal').classList.add('show');
   document.body.style.overflow = 'hidden';
 }
-
 function closeBooking(){
   $('#overlay').classList.remove('show');
   $('#bookingModal').classList.remove('show');
   document.body.style.overflow = '';
 }
-
 function selectService(id){
   selectedService = services.find(s => s.id === id);
   openBooking();
   step = 2;
   renderStep();
 }
+function updateProgress(){
+  document.querySelectorAll('.progress-step').forEach((el, i) => {
+    el.classList.toggle('active', i < step);
+  });
+  $('#modalStep').innerText = 'الخطوة ' + step + ' من 3';
+}
 
 function renderStep(){
   const body = $('#modalBody');
   const footer = $('#modalFooter');
+  updateProgress();
 
   if(step === 1){
-    // Step 1: Select service
     $('#modalTitle').innerText = 'اختر الخدمة';
     body.innerHTML = `
-      <p style="color:var(--txt-sub);font-size:.85rem;margin-bottom:14px">اختر الخدمة الطبية التي تريد حجزها</p>
+      <p style="color:var(--txt-sub);font-size:.85rem;margin-bottom:16px;line-height:1.6">اختر الخدمة الطبية التي ترغب بحجزها من القائمة التالية</p>
       ${services.map(s => `
-        <div class="service-card" style="margin-bottom:10px" onclick="stepTo2(${s.id})">
-          <div style="display:flex;align-items:center;gap:12px">
-            <span style="font-size:1.8rem">${esc(s.icon||'🦷')}</span>
-            <div style="flex:1">
-              <div class="service-name" style="min-height:auto;margin-bottom:2px">${esc(s.name)}</div>
-              <div style="font-size:.75rem;color:var(--txt-sub)">⏱ ${esc(s.duration)} د • ${esc(s.price)}</div>
+        <div class="service-card" style="margin-bottom:12px;padding:18px" onclick="selectService(${s.id})">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="service-icon" style="width:52px;height:52px;font-size:1.5rem;margin-bottom:0">${esc(s.icon||'🦷')}</div>
+            <div style="flex:1;min-width:0">
+              <div class="service-name" style="font-size:1rem;margin-bottom:3px">${esc(s.name)}</div>
+              <div style="font-size:.75rem;color:var(--txt-sub);font-weight:600">⏱ ${esc(s.duration)} دقيقة • ${esc(s.price)}</div>
             </div>
-            <div style="color:var(--blue);font-size:1.3rem">←</div>
+            <div style="color:var(--teal);font-size:1.3rem;flex-shrink:0">←</div>
           </div>
         </div>
       `).join('')}
@@ -389,42 +798,40 @@ function renderStep(){
     footer.style.display = 'none';
   }
   else if(step === 2){
-    // Step 2: Select date + time
-    $('#modalTitle').innerText = 'اختر الموعد';
+    $('#modalTitle').innerText = 'اختر التاريخ والوقت';
     const days = generateDays();
     body.innerHTML = `
-      <div class="booking-summary">
-        <div class="summary-row"><span class="lbl">الخدمة:</span><span class="val">${esc(selectedService.name)}</span></div>
-        <div class="summary-row"><span class="lbl">المدة:</span><span class="val">${esc(selectedService.duration)} دقيقة</span></div>
-        <div class="summary-row total"><span class="lbl">السعر:</span><span class="val">${esc(selectedService.price)}</span></div>
+      <div class="summary">
+        <div class="summary-row"><span class="lbl">الخدمة</span><span class="val">${esc(selectedService.name)}</span></div>
+        <div class="summary-row"><span class="lbl">المدة</span><span class="val">${esc(selectedService.duration)} دقيقة</span></div>
+        <div class="summary-row total"><span class="lbl">السعر</span><span class="val">${esc(selectedService.price)}</span></div>
       </div>
       <div class="field">
-        <label>📅 اختر اليوم</label>
+        <label>📅 اختر اليوم المناسب</label>
         <div class="days-scroll" id="daysScroll">
           ${days.map(d => `
             <div class="day-pill" data-date="${d.iso}" onclick="selectDay(this,'${d.iso}')">
-              <div class="day-name">${d.dayName}</div>
-              <div class="day-num">${d.dayNum}</div>
+              <div class="dn">${d.dayName}</div>
+              <div class="dd">${d.dayNum}</div>
             </div>
           `).join('')}
         </div>
       </div>
       <div class="field" id="timeField" style="display:none">
-        <label>🕐 اختر الوقت</label>
+        <label>🕐 اختر الوقت المناسب</label>
         <div class="slots-grid" id="slotsGrid"></div>
       </div>
     `;
     footer.style.display = 'none';
   }
   else if(step === 3){
-    // Step 3: Patient info
     $('#modalTitle').innerText = 'بياناتك';
     body.innerHTML = `
-      <div class="booking-summary">
-        <div class="summary-row"><span class="lbl">الخدمة:</span><span class="val">${esc(selectedService.name)}</span></div>
-        <div class="summary-row"><span class="lbl">التاريخ:</span><span class="val">${formatDateAr(selectedDate)}</span></div>
-        <div class="summary-row"><span class="lbl">الوقت:</span><span class="val">${selectedTime}</span></div>
-        <div class="summary-row total"><span class="lbl">السعر:</span><span class="val">${esc(selectedService.price)}</span></div>
+      <div class="summary">
+        <div class="summary-row"><span class="lbl">الخدمة</span><span class="val">${esc(selectedService.name)}</span></div>
+        <div class="summary-row"><span class="lbl">التاريخ</span><span class="val">${formatDateAr(selectedDate)}</span></div>
+        <div class="summary-row"><span class="lbl">الوقت</span><span class="val">${selectedTime}</span></div>
+        <div class="summary-row total"><span class="lbl">الإجمالي</span><span class="val">${esc(selectedService.price)}</span></div>
       </div>
       <div class="field">
         <label>الاسم الكامل *</label>
@@ -435,25 +842,19 @@ function renderStep(){
         <input type="tel" id="fPhone" placeholder="09xxxxxxxx" inputmode="tel">
       </div>
       <div class="field">
-        <label>ملاحظات (اختياري)</label>
-        <textarea id="fNotes" placeholder="أي تفاصيل إضافية تود إخبارنا بها..."></textarea>
+        <label>ملاحظات إضافية (اختياري)</label>
+        <textarea id="fNotes" placeholder="أي تفاصيل تود إخبارنا بها..."></textarea>
       </div>
     `;
     footer.style.display = 'block';
-    $('#confirmBtn').innerText = '✅ تأكيد الحجز';
+    $('#confirmBtn').innerText = '✓ تأكيد الحجز';
+    $('#confirmBtn').disabled = false;
   }
-}
-
-function stepTo2(id){
-  selectedService = services.find(s => s.id === id);
-  step = 2;
-  renderStep();
 }
 
 function generateDays(){
   const days = [];
   const dayNames = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-  const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
   const advance = settings.advance_days || 14;
   const closed = settings.closed_days || [5];
   const today = new Date();
@@ -465,7 +866,7 @@ function generateDays(){
     days.push({
       iso,
       dayName: i === 0 ? 'اليوم' : (i === 1 ? 'بكرا' : dayNames[d.getDay()]),
-      dayNum: d.getDate() + ' ' + months[d.getMonth()]
+      dayNum: d.getDate()
     });
   }
   return days;
@@ -488,10 +889,9 @@ function renderSlots(){
     .map(b => b.time);
 
   if(!slots.length){
-    grid.innerHTML = '<div style="color:var(--txt-sub);text-align:center;padding:20px">لا توجد أوقات متاحة</div>';
+    grid.innerHTML = '<div style="color:var(--txt-sub);text-align:center;padding:20px;grid-column:1/-1">لا توجد أوقات متاحة</div>';
     return;
   }
-
   grid.innerHTML = slots.map(t => {
     const isTaken = taken.includes(t);
     return `<div class="slot ${isTaken?'taken':''}" ${isTaken?'':`onclick="selectTime(this,'${t}')"`}>${t}</div>`;
@@ -527,10 +927,9 @@ function formatDateAr(iso){
   const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
   const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
   const dt = new Date(iso);
-  return days[dt.getDay()] + '، ' + parseInt(d) + ' ' + months[parseInt(m)-1] + ' ' + y;
+  return days[dt.getDay()] + '، ' + parseInt(d) + ' ' + months[parseInt(m)-1];
 }
 
-/* ================= Confirm ================= */
 async function confirmBooking(){
   const name = $('#fName').value.trim();
   const phone = $('#fPhone').value.trim();
@@ -542,7 +941,6 @@ async function confirmBooking(){
   $('#confirmBtn').disabled = true;
   $('#confirmBtn').innerText = '⏳ جاري الحجز...';
 
-  // Check for conflict
   try{
     const r = await fetch(API_BOOKINGS + '?t=' + Date.now(), {cache:'no-store'});
     const bk = await r.json() || {};
@@ -550,15 +948,15 @@ async function confirmBooking(){
     if(taken.length){
       toast('عذراً، هذا الوقت تم حجزه للتو', 'err');
       $('#confirmBtn').disabled = false;
-      $('#confirmBtn').innerText = '✅ تأكيد الحجز';
+      $('#confirmBtn').innerText = '✓ تأكيد الحجز';
+      step = 2;
       renderStep();
       return;
     }
 
     const id = Date.now();
     const booking = {
-      id,
-      name, phone, notes,
+      id, name, phone, notes,
       service_id: selectedService.id,
       service_name: selectedService.name,
       duration: selectedService.duration,
@@ -575,32 +973,34 @@ async function confirmBooking(){
       body: JSON.stringify(booking)
     });
 
-    if(!res.ok) throw new Error('فشل الحجز');
-
+    if(!res.ok) throw new Error('فشل');
     bookings.push(booking);
     showSuccess(booking);
   }catch(e){
     toast('حدث خطأ، حاول مرة ثانية', 'err');
     $('#confirmBtn').disabled = false;
-    $('#confirmBtn').innerText = '✅ تأكيد الحجز';
+    $('#confirmBtn').innerText = '✓ تأكيد الحجز';
   }
 }
 
 function showSuccess(b){
-  $('#modalTitle').innerText = '✅ تم الحجز';
+  updateProgress();
+  $('#modalTitle').innerText = 'تم الحجز بنجاح';
+  $('#modalStep').innerText = 'شكراً لثقتك بنا';
+  document.querySelectorAll('.progress-step').forEach(el => el.classList.add('active'));
   $('#modalBody').innerHTML = `
-    <div class="success-screen">
-      <div class="success-icon">✓</div>
-      <div class="success-title">تم حجز موعدك بنجاح</div>
-      <p class="success-text">سنتواصل معك عبر واتساب لتأكيد الموعد خلال وقت قصير</p>
+    <div class="success">
+      <div class="success-ico">✓</div>
+      <h3>تم حجز موعدك بنجاح</h3>
+      <p>سنتواصل معك عبر واتساب لتأكيد الموعد خلال دقائق</p>
       <div class="success-details">
         <div class="row"><span class="l">الخدمة</span><span class="v">${esc(b.service_name)}</span></div>
         <div class="row"><span class="l">التاريخ</span><span class="v">${formatDateAr(b.date)}</span></div>
         <div class="row"><span class="l">الوقت</span><span class="v">${b.time}</span></div>
         <div class="row"><span class="l">السعر</span><span class="v">${esc(b.price)}</span></div>
       </div>
-      <button class="btn btn-wa" onclick="sendWAConfirm(${b.id})">📲 إرسال التأكيد للعيادة</button>
-      <button class="btn" style="margin-top:10px;background:var(--bg);color:var(--txt)" onclick="closeBooking()">إغلاق</button>
+      <button class="btn btn-wa btn-block" onclick="sendWAConfirm(${b.id})" style="margin-bottom:10px">📲 إرسال التأكيد للعيادة</button>
+      <button class="btn btn-outline btn-block" onclick="closeBooking()">إغلاق</button>
     </div>
   `;
   $('#modalFooter').style.display = 'none';
@@ -621,7 +1021,6 @@ function sendWAConfirm(id){
   window.open('https://wa.me/' + wa + '?text=' + encodeURIComponent(text), '_blank');
 }
 
-/* ================= Start ================= */
 document.addEventListener('DOMContentLoaded', loadAll);
 </script>
 </body>
