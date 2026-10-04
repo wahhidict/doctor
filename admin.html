@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم | عيادة الابتسامة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0ea5e9;--blue-2:#0284c7;--blue-3:#0369a1;--blue-light:#e0f2fe;--green:#10b981;--green-2:#059669;--red:#ef4444;--orange:#f59e0b;--bg:#f8fafc;--card:#fff;--txt:#0f172a;--txt-sub:#64748b;--bd:#e2e8f0;--shadow:0 4px 20px rgba(15,23,42,.06)}
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif}
+body{background:var(--bg);color:var(--txt);min-height:100vh;padding-bottom:60px}
+h1,h2,h3{font-family:'Cairo',sans-serif}
+.topbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--bd);padding:14px 20px}
+.topbar-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.topbar h1{font-size:1.1rem;font-weight:900;color:var(--txt)}
+.topbar a{background:var(--blue-light);color:var(--blue-3);text-decoration:none;padding:8px 14px;border-radius:10px;font-size:.8rem;font-weight:800}
+.container{max-width:900px;margin:0 auto;padding:20px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+.card h2{font-size:1rem;font-weight:900;color:var(--txt);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:.76rem;color:var(--txt-sub);font-weight:800;margin-bottom:6px}
+input,textarea,select{width:100%;padding:11px 14px;border-radius:12px;background:var(--bg);border:1px solid var(--bd);color:var(--txt);font-size:.88rem;outline:none;font-family:inherit;margin-bottom:12px;transition:.2s}
+input:focus,textarea:focus{border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(14,165,233,.1)}
+textarea{resize:vertical;min-height:70px}
+.btn{padding:11px 20px;border-radius:12px;border:none;font-weight:800;font-size:.88rem;cursor:pointer;font-family:'Tajawal',sans-serif;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue-3));color:#fff}
+.btn-green{background:linear-gradient(135deg,var(--green),var(--green-2));color:#fff}
+.btn-red{background:linear-gradient(135deg,var(--red),#b91c1c);color:#fff}
+.btn-gray{background:var(--bg);color:var(--txt);border:1px solid var(--bd)}
+.btn-sm{padding:6px 12px;font-size:.76rem;border-radius:9px}
+.btn-full{width:100%}
+.tabs{display:flex;gap:6px;background:#fff;padding:6px;border-radius:14px;margin-bottom:16px;box-shadow:var(--shadow);overflow-x:auto}
+.tab{flex:1;min-width:110px;padding:11px;border-radius:10px;background:transparent;border:none;font-weight:800;font-size:.82rem;cursor:pointer;font-family:inherit;color:var(--txt-sub);transition:.2s;white-space:nowrap}
+.tab.active{background:linear-gradient(135deg,var(--blue),var(--blue-3));color:#fff}
+.booking-item{background:var(--bg);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid var(--bd)}
+.booking-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:10px;gap:10px}
+.booking-name{font-weight:900;font-size:.92rem}
+.booking-service{font-size:.78rem;color:var(--blue-2);font-weight:700;margin-top:3px}
+.booking-time{font-size:.75rem;color:var(--txt-sub);margin-top:3px}
+.status-pill{padding:4px 10px;border-radius:100px;font-size:.68rem;font-weight:900;white-space:nowrap}
+.status-pending{background:#fef3c7;color:#92400e}
+.status-confirmed{background:#d1fae5;color:#065f46}
+.status-cancelled{background:#fee2e2;color:#991b1b}
+.status-done{background:#dbeafe;color:#1e40af}
+.booking-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.service-item{background:var(--bg);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.service-item .ico{font-size:1.6rem}
+.service-item .info{flex:1}
+.service-item .name{font-weight:900;font-size:.9rem}
+.service-item .meta{font-size:.75rem;color:var(--txt-sub);margin-top:2px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--txt);color:#fff;padding:13px 22px;border-radius:14px;font-weight:800;font-size:.85rem;z-index:999;opacity:0;transition:.35s;max-width:calc(100vw - 40px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toast.success{background:linear-gradient(135deg,var(--green),var(--green-2))}
+.toast.err{background:linear-gradient(135deg,var(--red),#b91c1c)}
+.stats-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.stat-mini{background:#fff;padding:14px;border-radius:14px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--bd)}
+.stat-mini .n{font-family:'Cairo',sans-serif;font-size:1.4rem;font-weight:900;color:var(--blue-2)}
+.stat-mini .l{font-size:.68rem;color:var(--txt-sub);font-weight:700;margin-top:4px}
+.empty{text-align:center;padding:40px 20px;color:var(--txt-sub);font-size:.88rem}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <h1>⚡ لوحة تحكم العيادة</h1>
+    <a href="index.html" target="_blank">عرض الموقع ↗</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="stats-mini" id="statsMini"></div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('bookings',this)">📅 الحجوزات</button>
+    <button class="tab" onclick="switchTab('services',this)">🦷 الخدمات</button>
+    <button class="tab" onclick="switchTab('settings',this)">⚙️ الإعدادات</button>
+  </div>
+
+  <!-- Bookings -->
+  <div id="tab-bookings">
+    <div class="card">
+      <h2>📅 كل الحجوزات</h2>
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" onclick="filterBookings('all')" id="fAll">الكل</button>
+        <button class="btn btn-gray btn-sm" onclick="filterBookings('today')" id="fToday">اليوم</button>
+        <button class="btn btn-gray btn-sm" onclick="filterBookings('pending')" id="fPending">بانتظار التأكيد</button>
+        <button class="btn btn-gray btn-sm" onclick="filterBookings('confirmed')" id="fConfirmed">مؤكد</button>
+      </div>
+      <div id="bookingsList"></div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div id="tab-services" class="hide">
+    <div class="card">
+      <h2>➕ إضافة خدمة جديدة</h2>
+      <label>اسم الخدمة *</label>
+      <input type="text" id="sName" placeholder="مثال: تنظيف وتلميع">
+      <label>الوصف</label>
+      <input type="text" id="sDesc" placeholder="وصف مختصر للخدمة">
+      <label>المدة (بالدقائق)</label>
+      <input type="number" id="sDur" placeholder="30" value="30">
+      <label>السعر *</label>
+      <input type="text" id="sPrice" placeholder="مثال: 150,000 ل.س">
+      <label>الأيقونة</label>
+      <input type="text" id="sIcon" placeholder="🦷" value="🦷" maxlength="3">
+      <button class="btn btn-primary btn-full" onclick="addService()">⚡ إضافة الخدمة</button>
+    </div>
+    <div class="card">
+      <h2>🦷 الخدمات الحالية</h2>
+      <div id="servicesList"></div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div id="tab-settings" class="hide">
+    <div class="card">
+      <h2>🏥 بيانات العيادة</h2>
+      <label>اسم العيادة:</label>
+      <input type="text" id="set_clinic_name" placeholder="عيادة الابتسامة">
+      <label>اسم الطبيب:</label>
+      <input type="text" id="set_doctor_name" placeholder="د. أحمد الحلاق">
+      <label>التخصص:</label>
+      <input type="text" id="set_specialty" placeholder="أخصائي طب وجراحة الأسنان">
+      <label>نبذة تعريفية:</label>
+      <textarea id="set_bio" placeholder="15 سنة خبرة..."></textarea>
+      <label>سنوات الخبرة:</label>
+      <input type="number" id="set_experience_years" placeholder="15">
+      <label>عدد المرضى:</label>
+      <input type="number" id="set_patients_count" placeholder="2000">
+      <label>التقييم (مثلاً 4.9):</label>
+      <input type="text" id="set_rating" placeholder="4.9">
+      <label>رابط صورة الطبيب (اختياري):</label>
+      <input type="text" id="set_doctor_photo" placeholder="https://...">
+    </div>
+    <div class="card">
+      <h2>📞 معلومات التواصل</h2>
+      <label>رقم الواتساب (مع رمز الدولة، بدون +):</label>
+      <input type="text" id="set_whatsapp" placeholder="963945333924">
+      <label>رقم الهاتف:</label>
+      <input type="text" id="set_phone" placeholder="+963945333924">
+      <label>العنوان:</label>
+      <input type="text" id="set_address" placeholder="دمشق — المزة">
+      <label>رابط الموقع (Google Maps):</label>
+      <input type="text" id="set_location_url" placeholder="https://maps.app.goo.gl/...">
+      <label>حالة العيادة:</label>
+      <input type="text" id="set_status_text" placeholder="نستقبل الحجوزات">
+    </div>
+    <div class="card">
+      <h2>⏰ مواعيد العمل</h2>
+      <label>وقت الفتح:</label>
+      <input type="text" id="set_opening_time" placeholder="09:00">
+      <label>وقت الإغلاق:</label>
+      <input type="text" id="set_closing_time" placeholder="21:00">
+      <label>مدة الموعد (بالدقائق):</label>
+      <input type="number" id="set_slot_duration" placeholder="30">
+      <label>أيام الإغلاق (0=الأحد، 1=الاثنين، ... 5=الجمعة، 6=السبت):</label>
+      <input type="text" id="set_closed_days" placeholder="5 (يعني الجمعة فقط)">
+      <label>عدد الأيام المسموحة للحجز المسبق:</label>
+      <input type="number" id="set_advance_days" placeholder="14">
+      <button class="btn btn-primary btn-full" onclick="saveSettings()">💾 حفظ جميع الإعدادات</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const FIREBASE_URL = "https://alsalah-695f5-default-rtdb.europe-west1.firebasedatabase.app";
+const PATH = "/dentist-demo";
+const API_SETTINGS = FIREBASE_URL + PATH + "/settings.json";
+const API_SERVICES = FIREBASE_URL + PATH + "/services.json";
+const API_BOOKINGS = FIREBASE_URL + PATH + "/bookings.json";
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+let settings = {}, services = [], bookings = [];
+let bookingFilter = 'all';
+
+let toastT;
+function toast(msg, type='success'){
+  const t = $('#toast');
+  t.innerText = msg;
+  t.className = 'toast show ' + type;
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.className = 'toast', 3000);
+}
+
+async function loadAll(){
+  try{
+    const [rs, rv, rb] = await Promise.all([
+      fetch(API_SETTINGS + '?t=' + Date.now(), {cache:'no-store'}),
+      fetch(API_SERVICES + '?t=' + Date.now(), {cache:'no-store'}),
+      fetch(API_BOOKINGS + '?t=' + Date.now(), {cache:'no-store'})
+    ]);
+    settings = await rs.json() || {};
+    const sv = await rv.json();
+    services = sv ? Object.values(sv) : [];
+    const bk = await rb.json();
+    bookings = bk ? Object.values(bk) : [];
+    renderStats();
+    renderBookings();
+    renderServices();
+    fillSettings();
+  }catch(e){
+    toast('تعذر الاتصال', 'err');
+  }
+}
+
+function renderStats(){
+  const today = new Date().toISOString().split('T')[0];
+  const todayCount = bookings.filter(b => b.date === today && b.status !== 'cancelled').length;
+  const pending = bookings.filter(b => b.status === 'pending').length;
+  const total = bookings.filter(b => b.status !== 'cancelled').length;
+  $('#statsMini').innerHTML = `
+    <div class="stat-mini"><div class="n">${todayCount}</div><div class="l">حجوزات اليوم</div></div>
+    <div class="stat-mini"><div class="n">${pending}</div><div class="l">بانتظار التأكيد</div></div>
+    <div class="stat-mini"><div class="n">${total}</div><div class="l">إجمالي الحجوزات</div></div>
+  `;
+}
+
+function filterBookings(f){
+  bookingFilter = f;
+  ['all','today','pending','confirmed'].forEach(x => {
+    const el = $('#f' + x.charAt(0).toUpperCase() + x.slice(1));
+    if(el) el.className = 'btn btn-sm ' + (x === f ? 'btn-primary' : 'btn-gray');
+  });
+  renderBookings();
+}
+
+function renderBookings(){
+  let list = bookings.slice();
+  const today = new Date().toISOString().split('T')[0];
+  if(bookingFilter === 'today') list = list.filter(b => b.date === today);
+  else if(bookingFilter === 'pending') list = list.filter(b => b.status === 'pending');
+  else if(bookingFilter === 'confirmed') list = list.filter(b => b.status === 'confirmed');
+
+  list.sort((a,b) => (a.date + a.time).localeCompare(b.date + b.time));
+
+  if(!list.length){
+    $('#bookingsList').innerHTML = '<div class="empty">لا توجد حجوزات</div>';
+    return;
+  }
+
+  $('#bookingsList').innerHTML = list.map(b => {
+    const statusTxt = {pending:'بانتظار التأكيد', confirmed:'مؤكد', cancelled:'ملغي', done:'مكتمل'}[b.status] || b.status;
+    return `
+      <div class="booking-item">
+        <div class="booking-head">
+          <div>
+            <div class="booking-name">${esc(b.name)}</div>
+            <div class="booking-service">🦷 ${esc(b.service_name)}</div>
+            <div class="booking-time">📅 ${esc(b.date)} — 🕐 ${esc(b.time)}</div>
+            <div class="booking-time">📞 ${esc(b.phone)}</div>
+            ${b.notes ? `<div class="booking-time">📝 ${esc(b.notes)}</div>` : ''}
+          </div>
+          <div class="status-pill status-${b.status}">${statusTxt}</div>
+        </div>
+        <div class="booking-actions">
+          ${b.status === 'pending' ? `<button class="btn btn-green btn-sm" onclick="changeStatus(${b.id},'confirmed')">✅ تأكيد</button>` : ''}
+          ${b.status !== 'cancelled' && b.status !== 'done' ? `<button class="btn btn-primary btn-sm" onclick="changeStatus(${b.id},'done')">✓ مكتمل</button>` : ''}
+          ${b.status !== 'cancelled' ? `<button class="btn btn-red btn-sm" onclick="changeStatus(${b.id},'cancelled')">✕ إلغاء</button>` : ''}
+          <button class="btn btn-gray btn-sm" onclick="waContact('${esc(b.phone)}','${esc(b.name)}')">💬 واتساب</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function changeStatus(id, status){
+  const b = bookings.find(x => x.id === id);
+  if(!b) return;
+  try{
+    b.status = status;
+    const r = await fetch(FIREBASE_URL + PATH + '/bookings/' + id + '.json', {
+      method: 'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({status})
+    });
+    if(!r.ok) throw new Error();
+    toast('✅ تم التحديث');
+    renderStats();
+    renderBookings();
+  }catch(e){
+    toast('فشل التحديث', 'err');
+  }
+}
+
+function waContact(phone, name){
+  let p = phone.replace(/\D/g, '');
+  if(p.startsWith('0')) p = '963' + p.slice(1);
+  if(!p.startsWith('963')) p = '963' + p;
+  const msg = 'مرحباً ' + name + '، بخصوص موعدك في ' + (settings.clinic_name || 'العيادة');
+  window.open('https://wa.me/' + p + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+function renderServices(){
+  if(!services.length){
+    $('#servicesList').innerHTML = '<div class="empty">لا توجد خدمات. أضف خدمة جديدة</div>';
+    return;
+  }
+  $('#servicesList').innerHTML = services.map(s => `
+    <div class="service-item">
+      <div class="ico">${esc(s.icon||'🦷')}</div>
+      <div class="info">
+        <div class="name">${esc(s.name)}</div>
+        <div class="meta">⏱ ${esc(s.duration)} د • 💰 ${esc(s.price)}</div>
+      </div>
+      <button class="btn btn-red btn-sm" onclick="deleteService(${s.id})">حذف</button>
+    </div>
+  `).join('');
+}
+
+async function addService(){
+  const name = $('#sName').value.trim();
+  const desc = $('#sDesc').value.trim();
+  const dur = parseInt($('#sDur').value) || 30;
+  const price = $('#sPrice').value.trim();
+  const icon = $('#sIcon').value.trim() || '🦷';
+
+  if(!name || !price) return toast('أدخل الاسم والسعر', 'err');
+
+  const id = Date.now();
+  const s = {id, name, description:desc, duration:dur, price, icon};
+
+  try{
+    const r = await fetch(FIREBASE_URL + PATH + '/services/' + id + '.json', {
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(s)
+    });
+    if(!r.ok) throw new Error();
+    services.push(s);
+    toast('✅ تم إضافة الخدمة');
+    ['sName','sDesc','sPrice'].forEach(i => $('#' + i).value = '');
+    $('#sDur').value = 30;
+    renderServices();
+  }catch(e){
+    toast('فشل الإضافة', 'err');
+  }
+}
+
+async function deleteService(id){
+  if(!confirm('حذف هذه الخدمة؟')) return;
+  try{
+    await fetch(FIREBASE_URL + PATH + '/services/' + id + '.json', {method:'DELETE'});
+    services = services.filter(s => s.id !== id);
+    toast('✅ تم الحذف');
+    renderServices();
+  }catch(e){
+    toast('فشل الحذف', 'err');
+  }
+}
+
+function fillSettings(){
+  const m = {
+    set_clinic_name: 'clinic_name', set_doctor_name: 'doctor_name',
+    set_specialty: 'specialty', set_bio: 'bio',
+    set_experience_years: 'experience_years', set_patients_count: 'patients_count',
+    set_rating: 'rating', set_doctor_photo: 'doctor_photo',
+    set_whatsapp: 'whatsapp', set_phone: 'phone', set_address: 'address',
+    set_location_url: 'location_url', set_status_text: 'status_text',
+    set_opening_time: 'opening_time', set_closing_time: 'closing_time',
+    set_slot_duration: 'slot_duration', set_advance_days: 'advance_days'
+  };
+  for(const k in m){
+    const el = $('#' + k);
+    if(el) el.value = settings[m[k]] || '';
+  }
+  const cd = $('#set_closed_days');
+  if(cd) cd.value = (settings.closed_days || [5]).join(',');
+}
+
+async function saveSettings(){
+  const s = {
+    clinic_name: $('#set_clinic_name').value.trim(),
+    doctor_name: $('#set_doctor_name').value.trim(),
+    specialty: $('#set_specialty').value.trim(),
+    bio: $('#set_bio').value.trim(),
+    experience_years: $('#set_experience_years').value.trim(),
+    patients_count: $('#set_patients_count').value.trim(),
+    rating: $('#set_rating').value.trim(),
+    doctor_photo: $('#set_doctor_photo').value.trim(),
+    whatsapp: $('#set_whatsapp').value.trim(),
+    phone: $('#set_phone').value.trim(),
+    address: $('#set_address').value.trim(),
+    location_url: $('#set_location_url').value.trim(),
+    status_text: $('#set_status_text').value.trim() || 'نستقبل الحجوزات',
+    opening_time: $('#set_opening_time').value.trim() || '09:00',
+    closing_time: $('#set_closing_time').value.trim() || '21:00',
+    slot_duration: parseInt($('#set_slot_duration').value) || 30,
+    advance_days: parseInt($('#set_advance_days').value) || 14,
+    closed_days: ($('#set_closed_days').value || '5').split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x))
+  };
+
+  try{
+    const r = await fetch(API_SETTINGS, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(s)
+    });
+    if(!r.ok) throw new Error();
+    settings = s;
+    toast('✅ تم حفظ الإعدادات');
+  }catch(e){
+    toast('فشل الحفظ', 'err');
+  }
+}
+
+function switchTab(name, el){
+  ['bookings','services','settings'].forEach(t => {
+    $('#tab-' + t).classList.toggle('hide', t !== name);
+  });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+/* Seed default data on first load */
+async function seedIfEmpty(){
+  const r = await fetch(API_SETTINGS + '?t=' + Date.now(), {cache:'no-store'});
+  const s = await r.json();
+  if(!s){
+    const defaults = {
+      clinic_name: 'عيادة الابتسامة الذكية',
+      doctor_name: 'د. أحمد الحلاق',
+      specialty: 'أخصائي طب وجراحة الأسنان',
+      bio: '15 سنة خبرة في تجميل وزرع الأسنان. نقدم لك أفضل الخدمات الطبية بأحدث التقنيات العالمية وبأسعار منافسة.',
+      experience_years: '15',
+      patients_count: '2000',
+      rating: '4.9',
+      whatsapp: '963945333924',
+      phone: '+963945333924',
+      address: 'دمشق — المزة',
+      location_url: 'https://maps.google.com',
+      status_text: 'نستقبل الحجوزات',
+      opening_time: '09:00',
+      closing_time: '21:00',
+      slot_duration: 30,
+      advance_days: 14,
+      closed_days: [5]
+    };
+    await fetch(API_SETTINGS, {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(defaults)});
+  }
+  const r2 = await fetch(API_SERVICES + '?t=' + Date.now(), {cache:'no-store'});
+  const sv = await r2.json();
+  if(!sv){
+    const defaultServices = [
+      {name:'فحص وتشخيص', description:'فحص شامل للفم والأسنان', duration:30, price:'50,000 ل.س', icon:'🔍'},
+      {name:'تنظيف وتلميع', description:'تنظيف عميق وتلميع الأسنان', duration:45, price:'150,000 ل.س', icon:'✨'},
+      {name:'حشوة تجميلية', description:'حشوة بلون السن الطبيعي', duration:45, price:'200,000 ل.س', icon:'🦷'},
+      {name:'علاج عصب', description:'علاج جذور الأسنان', duration:60, price:'400,000 ل.س', icon:'💉'},
+      {name:'خلع سن', description:'خلع بسيط أو جراحي', duration:30, price:'100,000 ل.س', icon:'🩺'},
+      {name:'تبييض أسنان', description:'تبييض احترافي بالليزر', duration:60, price:'450,000 ل.س', icon:'⚡'}
+    ];
+    for(const s of defaultServices){
+      const id = Date.now() + Math.floor(Math.random() * 1000);
+      await fetch(FIREBASE_URL + PATH + '/services/' + id + '.json', {
+        method:'PUT', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({id, ...s})
+      });
+      await new Promise(r => setTimeout(r, 50));
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await seedIfEmpty();
+  await loadAll();
+});
+</script>
+</body>
+</html>
